@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
-import { petService } from './service';
+import { animals, petService } from './service';
 import PetsTable from './PetsTable';
+import PetsTableControls from './PetsTableControls';
 
 class PetsPage extends Component {
   state = {
+    checkedAnimals: [],
     pets: []
   };
 
@@ -15,9 +17,31 @@ class PetsPage extends Component {
   render() {
     return (
       <main>
-        <PetsTable pets={this.state.pets} />
+        <PetsTableControls
+          onAnimalChecked={(animal, isChecked) => this.onAnimalChecked(animal, isChecked)}
+          animalFilters={animals}
+          checkedAnimals={this.state.checkedAnimals}
+        />
+        <PetsTable pets={this.getPets(this.state)} />
       </main>
     );
+  }
+
+  onAnimalChecked(animal, isChecked) {
+    if (isChecked) {
+      var checkedAnimals = this.state.checkedAnimals.filter(a => a !== animal);
+    } else {
+      var checkedAnimals = this.state.checkedAnimals.concat(animal);
+    }
+    this.setState({ checkedAnimals });
+  }
+
+  getPets({ checkedAnimals, pets }) {
+    if (!!checkedAnimals.length) {
+      return pets.filter(pet => checkedAnimals.includes(pet.animal));
+    } else {
+      return pets;
+    }
   }
 
 }

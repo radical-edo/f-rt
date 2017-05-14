@@ -12,9 +12,11 @@ const promiseArb = (errorArb, successArb, timerArb) =>
 //      setTimeout(res, timerArb.generator(10), val)
 //    }))
 //  );
+//
+export const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']
 
 const petArb = jsv.record({
-  animal: jsv.elements(['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']),
+  animal: jsv.elements(animals),
   colour: jsv.elements(['Black', 'White', 'Brown', 'Green']),
   pattern: jsv.elements(['Solid', 'Striped', 'Spotted']),
   rating: jsv.integer(1, 5),
