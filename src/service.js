@@ -15,12 +15,14 @@ const promiseArb = (errorArb, successArb, timerArb) =>
 //
 export const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']
 
+export const priceRange = { min: 10, max: 1000 };
+
 const petArb = jsv.record({
   animal: jsv.elements(animals),
   colour: jsv.elements(['Black', 'White', 'Brown', 'Green']),
   pattern: jsv.elements(['Solid', 'Striped', 'Spotted']),
   rating: jsv.integer(1, 5),
-  price: jsv.integer(10, 1000)
+  price: jsv.integer(priceRange.min, priceRange.max)
 });
 
 const errorsArb = jsv.elements(['Network error', 'Solar flare detected']);

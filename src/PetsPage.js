@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
-import { animals, petService } from './service';
+import { priceRange, animals, petService } from './service';
 import PetsTable from './PetsTable';
 import PetsTableControls from './PetsTableControls';
 
 class PetsPage extends Component {
   state = {
+    currentPriceRange: [priceRange.min, priceRange.max],
     checkedAnimals: [],
     pets: []
   };
@@ -15,16 +16,25 @@ class PetsPage extends Component {
   }
 
   render() {
+    const checkedPets = this.getCheckedPets(this.state);
+    const pets = this.getPetsInPriceRange(checkedPets, this.state.currentPriceRange);
     return (
       <main>
         <PetsTableControls
+          currentPriceRange={this.state.currentPriceRange}
+          priceRange={priceRange}
+          onPriceChanged={(...args) => this.onPriceChanged(...args)}
           onAnimalChecked={(animal, isChecked) => this.onAnimalChecked(animal, isChecked)}
           animalFilters={animals}
           checkedAnimals={this.state.checkedAnimals}
         />
-        <PetsTable pets={this.getPets(this.state)} />
+        <PetsTable pets={pets} />
       </main>
     );
+  }
+
+  onPriceChanged(currentPriceRange) {
+    this.setState({ currentPriceRange }); 
   }
 
   onAnimalChecked(animal, isChecked) {
@@ -37,7 +47,12 @@ class PetsPage extends Component {
     this.setState({ checkedAnimals });
   }
 
-  getPets({ checkedAnimals, pets }) {
+  getPetsInPriceRange(pets, currentPriceRange) {
+    const [min, max] = currentPriceRange;
+    return pets.filter(pet => pet.price >= min && pet.price <= max);
+  }
+
+  getCheckedPets({ checkedAnimals, pets }) {
     if (!!checkedAnimals.length) {
       return pets.filter(pet => checkedAnimals.includes(pet.animal));
     } else {
