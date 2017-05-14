@@ -28,10 +28,11 @@ class PetsPage extends Component {
   }
 
   onAnimalChecked(animal, isChecked) {
+    let checkedAnimals;
     if (isChecked) {
-      var checkedAnimals = this.state.checkedAnimals.filter(a => a !== animal);
+      checkedAnimals = this.state.checkedAnimals.filter(a => a !== animal);
     } else {
-      var checkedAnimals = this.state.checkedAnimals.concat(animal);
+      checkedAnimals = this.state.checkedAnimals.concat(animal);
     }
     this.setState({ checkedAnimals });
   }
