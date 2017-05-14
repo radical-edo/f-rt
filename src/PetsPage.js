@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 import { priceRange, animals, petService } from './service';
 import PetsTable from './PetsTable';
@@ -14,7 +15,8 @@ const SORT_PROP_MAP = {
 
 class PetsPage extends Component {
   state = {
-    petsLoaded: false,
+    requestFailed: false,
+    responseReceived: false,
     sortBy: { price: { order: 0, index: 1 }, rating: { order: 0, index: 1 } },
     currentPriceRange: [priceRange.min, priceRange.max],
     checkedAnimals: [],
@@ -22,7 +24,18 @@ class PetsPage extends Component {
   };
 
   componentDidMount() {
-    petService.fetch().then(pets => this.setState({ pets, petsLoaded: true }));
+    this.fetchPets();
+  }
+
+  fetchPets() {
+    this.setState({
+      responseReceived: false, requestFailed: false
+    });
+    setTimeout(() => {
+      petService.fetch()
+        .then(pets => this.setState({ pets, responseReceived: true }))
+        .catch(err => this.setState({ responseReceived: true, requestFailed: true })) 
+    });
   }
 
   render() {
@@ -41,13 +54,19 @@ class PetsPage extends Component {
           checkedAnimals={this.state.checkedAnimals}
         />
         {
-          this.state.petsLoaded ? (
+          this.state.responseReceived ? (
             <PetsTable
               onTableHeaderClick={(...args) => this.onTableHeaderClick(...args)}
               sortBy={this.state.sortBy}
               pets={pets}
             />) : <CircularProgress className="PetsPage--loading" size={50} thickness={5} />
         }
+        <Snackbar
+          open={this.state.responseReceived && this.state.requestFailed}
+          action="retry"
+          onActionTouchTap={() => this.fetchPets()}
+          message="Failed to Fetch Pets"
+        />
       </main>
     );
   }

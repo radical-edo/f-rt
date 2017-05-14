@@ -1,18 +1,15 @@
 import jsv from 'jsverify';
 
 const promiseArb = (errorArb, successArb, timerArb) =>
-  successArb.smap(val => new Promise((res, _) => {
-    setTimeout(res, timerArb.generator(10), val)
-  }))
-//  jsv.oneof(
-//    errorArb.smap(err => new Promise((_, rej) => {
-//      setTimeout(rej, timerArb.generator(10), err)
-//    })),
-//    successArb.smap(val => new Promise((res, _) => {
-//      setTimeout(res, timerArb.generator(10), val)
-//    }))
-//  );
-//
+  jsv.oneof(
+    errorArb.smap(err => new Promise((_, rej) => {
+      setTimeout(rej, timerArb.generator(10), err)
+    })),
+    successArb.smap(val => new Promise((res, _) => {
+      setTimeout(res, timerArb.generator(10), val)
+    }))
+  )
+
 export const animals = ['Bird', 'Cat', 'Dog', 'Turtle', 'Pig', 'Capybara']
 
 export const priceRange = { min: 10, max: 1000 };
