@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Table from './Table';
+import PetsPage from './PetsPage';
 
 const App = () =>
   <MuiThemeProvider>
-    <Table />
+    <PetsPage />
   </MuiThemeProvider>
 
 ReactDOM.render(
