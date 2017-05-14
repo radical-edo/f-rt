@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { priceRange, animals, petService } from './service';
 import PetsTable from './PetsTable';
 import PetsTableControls from './PetsTableControls';
+import './PetsPage.css';
 
 const SORTING_WIEGHTS = [-1, 0, 1];
 const SORT_PROP_MAP = {
@@ -12,6 +14,7 @@ const SORT_PROP_MAP = {
 
 class PetsPage extends Component {
   state = {
+    petsLoaded: false,
     sortBy: { price: { order: 0, index: 1 }, rating: { order: 0, index: 1 } },
     currentPriceRange: [priceRange.min, priceRange.max],
     checkedAnimals: [],
@@ -19,7 +22,7 @@ class PetsPage extends Component {
   };
 
   componentDidMount() {
-    petService.fetch().then(pets => this.setState({ pets }));
+    petService.fetch().then(pets => this.setState({ pets, petsLoaded: true }));
   }
 
   render() {
@@ -37,11 +40,14 @@ class PetsPage extends Component {
           animalFilters={animals}
           checkedAnimals={this.state.checkedAnimals}
         />
-        <PetsTable
-          onTableHeaderClick={(...args) => this.onTableHeaderClick(...args)}
-          sortBy={this.state.sortBy}
-          pets={pets}
-        />
+        {
+          this.state.petsLoaded ? (
+            <PetsTable
+              onTableHeaderClick={(...args) => this.onTableHeaderClick(...args)}
+              sortBy={this.state.sortBy}
+              pets={pets}
+            />) : <CircularProgress className="PetsPage--loading" size={50} thickness={5} />
+        }
       </main>
     );
   }

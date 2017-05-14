@@ -61,21 +61,31 @@ function PetsTable({ sortBy: { price, rating }, onTableHeaderClick, pets }) {
       </TableHeader>
       <TableBody displayRowCheckbox={false}>
         {
-          pets.map((pet, id) => {
-            return (
-              <TableRow key={id}>
-                <TableRowColumn>{ id }</TableRowColumn>
-                <TableRowColumn>{ pet.animal }</TableRowColumn>
-                <TableRowColumn>{ pet.colour }</TableRowColumn>
-                <TableRowColumn>{ pet.pattern }</TableRowColumn>
-                <TableRowColumn>{ pet.rating }</TableRowColumn>
-                <TableRowColumn>{ pet.price }</TableRowColumn>
-              </TableRow>
-            );
-          })
+          pets.length ? renderPets(pets) : renderNoPetsInfo()
         }
       </TableBody>
     </Table>
+  );
+}
+
+function renderPets(pets) {
+ return pets.map((pet, id) => {
+    return (
+      <TableRow key={id}>
+        <TableRowColumn>{ id }</TableRowColumn>
+        <TableRowColumn>{ pet.animal }</TableRowColumn>
+        <TableRowColumn>{ pet.colour }</TableRowColumn>
+        <TableRowColumn>{ pet.pattern }</TableRowColumn>
+        <TableRowColumn>{ pet.rating }</TableRowColumn>
+        <TableRowColumn>{ pet.price }</TableRowColumn>
+      </TableRow>
+    );
+  });
+}
+
+function renderNoPetsInfo() {
+  return (
+    <TableRow><TableRowColumn>No Pets Found</TableRowColumn></TableRow>
   );
 }
 
