@@ -15,8 +15,8 @@ class PetsTable extends Component {
   render() {
     const { pets } = this.state;
     return (
-      <Table>
-        <TableHeader>
+      <Table selectable={false}>
+        <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn>id</TableHeaderColumn>
             <TableHeaderColumn>Animal</TableHeaderColumn>
@@ -26,7 +26,7 @@ class PetsTable extends Component {
             <TableHeaderColumn>Price</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody displayRowCheckbox={false}>
           {
             pets.map((pet, id) => {
               return (
