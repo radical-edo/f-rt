@@ -4,8 +4,11 @@ import { priceRange, animals, petService } from './service';
 import PetsTable from './PetsTable';
 import PetsTableControls from './PetsTableControls';
 
+const SORTING_WIEGHTS = [-1, 0, 1];
+
 class PetsPage extends Component {
   state = {
+    sortBy: { rating: { order: 0, index: 1 } },
     currentPriceRange: [priceRange.min, priceRange.max],
     checkedAnimals: [],
     pets: []
@@ -17,7 +20,8 @@ class PetsPage extends Component {
 
   render() {
     const checkedPets = this.getCheckedPets(this.state);
-    const pets = this.getPetsInPriceRange(checkedPets, this.state.currentPriceRange);
+    const filteredPets = this.getPetsInPriceRange(checkedPets, this.state.currentPriceRange);
+    const pets = [...filteredPets].sort((petA, petB) => this.state.sortBy.rating.order*(petA.rating - petB.rating));
     return (
       <main>
         <PetsTableControls
@@ -28,9 +32,26 @@ class PetsPage extends Component {
           animalFilters={animals}
           checkedAnimals={this.state.checkedAnimals}
         />
-        <PetsTable pets={pets} />
+        <PetsTable
+          onTableHeaderClick={(...args) => this.onTableHeaderClick(...args)}
+          sortBy={this.state.sortBy}
+          pets={pets}
+        />
       </main>
     );
+  }
+
+  getPetsInPriceRange(pets, currentPriceRange) {
+    const [min, max] = currentPriceRange;
+    return pets.filter(pet => pet.price >= min && pet.price <= max);
+  }
+
+  getCheckedPets({ checkedAnimals, pets }) {
+    if (!!checkedAnimals.length) {
+      return pets.filter(pet => checkedAnimals.includes(pet.animal));
+    } else {
+      return pets;
+    }
   }
 
   onPriceChanged(currentPriceRange) {
@@ -47,19 +68,13 @@ class PetsPage extends Component {
     this.setState({ checkedAnimals });
   }
 
-  getPetsInPriceRange(pets, currentPriceRange) {
-    const [min, max] = currentPriceRange;
-    return pets.filter(pet => pet.price >= min && pet.price <= max);
+  onTableHeaderClick(sortProp) {
+    const sortObj = this.state.sortBy[sortProp];
+    sortObj.index = (sortObj.index + 1) % SORTING_WIEGHTS.length
+    sortObj.order = SORTING_WIEGHTS[sortObj.index];
+    const sortBy = Object.assign({}, this.state.sortBy, { [sortProp]: sortObj });
+    this.setState({ sortBy });
   }
-
-  getCheckedPets({ checkedAnimals, pets }) {
-    if (!!checkedAnimals.length) {
-      return pets.filter(pet => checkedAnimals.includes(pet.animal));
-    } else {
-      return pets;
-    }
-  }
-
 }
 
 export default PetsPage;
