@@ -10,7 +10,7 @@ PetsTable.propTypes = {
 };
 
 PetsTable.defaultProps = {
-  sortBy: { rating:  {} },
+  sortBy: { price: {}, rating:  {} },
   onTableHeaderClick: Function.prototype
 };
 
@@ -28,7 +28,7 @@ function handleTableHeaderRowClick(onTableHeaderClick) {
   }
 }
 
-function PetsTable({ sortBy: { rating }, onTableHeaderClick, pets }) {
+function PetsTable({ sortBy: { price, rating }, onTableHeaderClick, pets }) {
   return (
     <Table selectable={false}>
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
@@ -39,14 +39,24 @@ function PetsTable({ sortBy: { rating }, onTableHeaderClick, pets }) {
           <TableHeaderColumn>Animal</TableHeaderColumn>
           <TableHeaderColumn>Colour</TableHeaderColumn>
           <TableHeaderColumn>Pattern</TableHeaderColumn>
-          <TableHeaderColumn className="PetsTable--table-header">
-            Rating
-            <span className="PetsTable--sort-symbol-container">
-              { rating.order >= 0 ? <i className="fa fa-caret-up"/> : null }
-              { rating.order <= 0 ? <i className="fa fa-caret-down"/> : null }
-            </span>
+          <TableHeaderColumn>
+            <div className="PetsTable--sortable-header">
+              Rating
+              <span className="PetsTable--sort-symbol-container">
+                { rating.order >= 0 ? <i className="fa fa-caret-up"/> : null }
+                { rating.order <= 0 ? <i className="fa fa-caret-down"/> : null }
+              </span>
+            </div>
           </TableHeaderColumn>
-          <TableHeaderColumn>Price</TableHeaderColumn>
+          <TableHeaderColumn>
+            <div className="PetsTable--sortable-header">
+              Price
+              <span className="PetsTable--sort-symbol-container">
+                { price.order >= 0 ? <i className="fa fa-caret-up"/> : null }
+                { price.order <= 0 ? <i className="fa fa-caret-down"/> : null }
+              </span>
+            </div>
+          </TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody displayRowCheckbox={false}>

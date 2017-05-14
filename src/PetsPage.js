@@ -5,10 +5,14 @@ import PetsTable from './PetsTable';
 import PetsTableControls from './PetsTableControls';
 
 const SORTING_WIEGHTS = [-1, 0, 1];
+const SORT_PROP_MAP = {
+  rating: 'price',
+  price: 'rating'
+};
 
 class PetsPage extends Component {
   state = {
-    sortBy: { rating: { order: 0, index: 1 } },
+    sortBy: { price: { order: 0, index: 1 }, rating: { order: 0, index: 1 } },
     currentPriceRange: [priceRange.min, priceRange.max],
     checkedAnimals: [],
     pets: []
@@ -21,7 +25,8 @@ class PetsPage extends Component {
   render() {
     const checkedPets = this.getCheckedPets(this.state);
     const filteredPets = this.getPetsInPriceRange(checkedPets, this.state.currentPriceRange);
-    const pets = this.sortPetsBy([...filteredPets], 'rating');
+    const petsSortedByRating = this.sortPetsBy([...filteredPets], 'rating');
+    const pets = this.sortPetsBy([...petsSortedByRating], 'price');
     return (
       <main>
         <PetsTableControls
@@ -75,9 +80,10 @@ class PetsPage extends Component {
 
   onTableHeaderClick(sortProp) {
     const sortObj = this.state.sortBy[sortProp];
-    sortObj.index = (sortObj.index + 1) % SORTING_WIEGHTS.length
+    const otherSortProp = SORT_PROP_MAP[sortProp];
+    sortObj.index = (sortObj.index + 1) % SORTING_WIEGHTS.length;
     sortObj.order = SORTING_WIEGHTS[sortObj.index];
-    const sortBy = Object.assign({}, this.state.sortBy, { [sortProp]: sortObj });
+    const sortBy = Object.assign({}, this.state.sortBy, { [sortProp]: sortObj, [otherSortProp]: { order: 0, index: 1} });
     this.setState({ sortBy });
   }
 }

@@ -1,6 +1,7 @@
-.PetsTable--table-header {
+.PetsTable--sortable-header {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .PetsTable--sort-symbol-container {
