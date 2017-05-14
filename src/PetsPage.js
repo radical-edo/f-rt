@@ -21,7 +21,7 @@ class PetsPage extends Component {
   render() {
     const checkedPets = this.getCheckedPets(this.state);
     const filteredPets = this.getPetsInPriceRange(checkedPets, this.state.currentPriceRange);
-    const pets = [...filteredPets].sort((petA, petB) => this.state.sortBy.rating.order*(petA.rating - petB.rating));
+    const pets = this.sortPetsBy([...filteredPets], 'rating');
     return (
       <main>
         <PetsTableControls
@@ -52,6 +52,11 @@ class PetsPage extends Component {
     } else {
       return pets;
     }
+  }
+
+  sortPetsBy(pets, prop) {
+    const { sortBy } = this.state;
+    return pets.sort((petA, petB) => sortBy[prop].order*(petA[prop] - petB[prop]));
   }
 
   onPriceChanged(currentPriceRange) {
