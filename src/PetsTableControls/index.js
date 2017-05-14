@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-import CheckBoxFilters from './CheckBoxFilters';
+import AnimalControl from './AnimalControl';
 
 function PetsTableControls({
   onAnimalChecked,
@@ -9,7 +9,7 @@ function PetsTableControls({
  }) {
   return (
     <div>
-      <CheckBoxFilters
+      <AnimalControl
         onAnimalChecked={onAnimalChecked}
         animalFilters={animalFilters}
         checkedAnimals={checkedAnimals}

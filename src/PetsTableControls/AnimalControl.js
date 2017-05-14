@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 
-CheckBoxFilters.propTypes = {
+AnimalControl.propTypes = {
   animalFilters: PropTypes.array.isRequired,
   checkedAnimals: PropTypes.array.isRequired,
   onAnimalChecked: PropTypes.func
 };
 
-CheckBoxFilters.defaultProps = {
+AnimalControl.defaultProps = {
   onAnimalChecked: Function.prototype
 };
 
-function CheckBoxFilters({
+function AnimalControl({
   onAnimalChecked,
   animalFilters,
   checkedAnimals
@@ -33,5 +33,5 @@ function CheckBoxFilters({
   );
 }
 
-export default CheckBoxFilters
+export default AnimalControl
 
