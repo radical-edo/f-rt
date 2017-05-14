@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import './index.css';
 import PriceControl from './PriceControl';
 import AnimalControl from './AnimalControl';
 
@@ -19,20 +20,38 @@ function PetsTableControls({
   animalFilters,
   checkedAnimals
  }) {
+  const [minPrice, maxPrice] = currentPriceRange;
   return (
-    <div>
-      <PriceControl
-        onAfterChange={onAfterPriceChanged}
-        value={currentPriceRange}
-        onChange={onPriceChanged}
-        min={priceRange.min}
-        max={priceRange.max}
-      />
-      <AnimalControl
-        onAnimalChecked={onAnimalChecked}
-        animalFilters={animalFilters}
-        checkedAnimals={checkedAnimals}
-      />
+    <div className="PetsTableControls--container">
+      <header className="PetsTableControls--container__header">
+        Available Pet Filters:
+      </header>
+      <div className="PetsTableControls--container__filters">
+        <section className="PetsTableControls--filters__section">
+          <header className="PetsTableControls--section__header">
+            Pets Price range: ({minPrice} - {maxPrice})$
+          </header>
+          <PriceControl
+            className="PetsTableControls--price-control"
+            onAfterChange={onAfterPriceChanged}
+            value={currentPriceRange}
+            onChange={onPriceChanged}
+            min={priceRange.min}
+            max={priceRange.max}
+          />
+        </section>
+        <section className="PetsTableControls--filters__section">
+          <header className="PetsTableControls--section__header">
+            Pet Types:
+          </header>
+          <AnimalControl
+            className="PetsTableControls--animal-control"
+            onAnimalChecked={onAnimalChecked}
+            animalFilters={animalFilters}
+            checkedAnimals={checkedAnimals}
+          />
+        </section>
+      </div>
     </div>
   );
 }

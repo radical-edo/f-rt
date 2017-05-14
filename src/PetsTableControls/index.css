@@ -1,0 +1,29 @@
+.PetsTableControls--container {
+  display: flex;
+  flex-direction: column;
+}
+
+.PetsTableControls--container__header {
+  font-size: 1.3rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.PetsTableControls--filters__section {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+}
+
+.PetsTableControls--section__header {
+  padding: 10px 0;
+}
+
+.PetsTableControls--price-control {
+  width: 50%;
+}
+
+.PetsTableControls--animal-control {
+  flex: 1;
+}
+

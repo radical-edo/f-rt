@@ -1,0 +1,18 @@
+.rc-slider {
+  --slider-color: rgb(0, 188, 212);
+  --slider-color-active: rgba(0, 188, 212, 0.8);
+}
+.rc-slider-track {
+  background-color: var(--slider-color);
+}
+
+.rc-slider-handle {
+  border: 2px solid var(--slider-color);
+}
+
+
+.rc-slider-handle:active {
+  border: 2px solid var(--slider-color-active);
+  box-shadow: 0 0 5px var(--slider-color-active); 
+}
+

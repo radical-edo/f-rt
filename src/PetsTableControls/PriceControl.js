@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+import './PriceControl.css';
+
 const Range = Slider.createSliderWithTooltip(Slider.Range);
 
 PriceControl.propTypes = {
@@ -17,9 +19,9 @@ PriceControl.defaultProps = {
   onChange: Function.prototype,
 };
 
-function PriceControl({ onAfterChange, onChange, min, max, value }) {
+function PriceControl({ className, onAfterChange, onChange, min, max, value }) {
   return (
-    <div>
+    <div className={className}>
       <Range
         min={min}
         max={max}
