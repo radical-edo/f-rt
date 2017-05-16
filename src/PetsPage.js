@@ -6,6 +6,7 @@ import { priceRange, animals, petService } from './service';
 import PetsTable from './PetsTable';
 import PetsTableControls from './PetsTableControls';
 import './PetsPage.css';
+import { cancelablePromise } from './util/cancelable_promise';
 
 const SORTING_WIEGHTS = [-1, 0, 1];
 const SORT_PROP_MAP = {
@@ -31,11 +32,18 @@ class PetsPage extends Component {
     this.setState({
       responseReceived: false, requestFailed: false
     });
-    setTimeout(() => {
-      petService.fetch()
-        .then(pets => this.setState({ pets, responseReceived: true }))
-        .catch(err => this.setState({ responseReceived: true, requestFailed: true })) 
-    });
+    this.petsFetchPromise = cancelablePromise(petService.fetch());
+    this.petsFetchPromise.promise
+      .then(pets => this.setState({ pets, responseReceived: true }))
+      .catch(err => {
+        if (null == err.isCanceled || false === err.isCanceled) {
+          this.setState({ responseReceived: true, requestFailed: true })
+        }
+      });
+  }
+
+  componentWillUnmount() {
+    this.petsFetchPromise.cancel();
   }
 
   render() {
