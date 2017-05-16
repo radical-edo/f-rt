@@ -1,0 +1,20 @@
+.nav {
+  margin-bottom: 15px;
+  --link-color: #4DB6AC;
+  display: flex;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: initial;
+  padding: 10px 15px;
+  border: 1px solid var(--link-color);
+  margin: 0 5px;
+  color: var(--link-color);
+  border-radius: 2px;
+}
+
+.nav__link--active {
+  color: #fff;
+  background-color: var(--link-color);
+}
