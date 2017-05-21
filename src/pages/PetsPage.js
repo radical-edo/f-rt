@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 
-import { priceRange, animals, petService } from './service';
-import PetsTable from './PetsTable';
-import PetsTableControls from './PetsTableControls';
+import { priceRange, animals, petService } from '../service';
+import PetsTable from '../components/PetsTable';
+import PetsTableControls from '../components/PetsTableControls';
 import './PetsPage.css';
-import { cancelablePromise } from './util/cancelable_promise';
+import { cancelablePromise } from '../util/cancelable_promise';
 
 const SORTING_WIEGHTS = [-1, 0, 1];
 const SORT_PROP_MAP = {

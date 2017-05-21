@@ -5,8 +5,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import 'font-awesome/css/font-awesome.min.css';
 import { Redirect, NavLink, HashRouter as Router, Route } from 'react-router-dom';
 
-import ArticlesPage from './Articles/ArticlesPage';
-import PetsPage from './PetsPage';
+import ArticlesPage from './pages/ArticlesPage';
+import PetsPage from './pages/PetsPage';
 injectTapEventPlugin();
 import './index.css';
 

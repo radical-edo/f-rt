@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import './index.css';
+import './PetsTableControls.css';
 import PriceControl from './PriceControl';
 import AnimalControl from './AnimalControl';
 
