@@ -7,9 +7,12 @@ html, body, body > div {
 }
 
 body {
+  --fonts: Roboto, sans-serif;
+  --primary-color: rgb(21, 145, 254);
+  --primary-darker-color: rgb(21, 130, 254);
   margin: 0;
   font-size: 16px;
-  font-family: Roboto, sans-serif;
+  font-family: var(--fonts);
 }
 
 .app-header {
@@ -96,4 +99,38 @@ body {
   padding: 15px 30px;
 }
 
+.content__progress-buttons {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 15px 25px;
+}
 
+.button {
+  outline: none;
+  padding: 10px 15px;
+  border: 1px solid var(--primary-color);
+  border-radius: 2px;
+  font-family: var(--fonts);
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.button--primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.button--primary:active {
+  background-color: var(--primary-darker-color);
+}
+
+.button--inverted {
+  background-color: #fff;
+  color: var(--primary-color);
+}
+
+.button--inverted:active {
+  color: #fff;
+  background-color: var(--primary-color);
+}
