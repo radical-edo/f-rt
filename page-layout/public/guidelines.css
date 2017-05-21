@@ -98,8 +98,12 @@ body {
   margin: 0;
 }
 
-.list--less-padding .list__item {
-  padding: 10px 30px;
+.list--no-side-padding .list__item {
+  padding: 10px 0;
+}
+
+.list--blue-links .list__item {
+  color: var(--primary-color);
 }
 
 .list__item {
@@ -146,3 +150,12 @@ body {
   line-height: 2rem;
 }
 
+.links__section-links {
+  padding-left: 45px;
+  border-left: 2px solid #bdbdbd;
+}
+
+.section-links__header {
+  color: #9e9e9e;
+  font-size: 0.9rem;
+}
