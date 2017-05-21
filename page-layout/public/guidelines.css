@@ -59,7 +59,7 @@ body {
 .app-header__page-title {
   color: var(--h1-color);
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 100;
   margin: 0;
 }
 
