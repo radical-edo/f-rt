@@ -63,3 +63,37 @@ body {
   margin: 0;
 }
 
+.main {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  font-size: 1.2rem;
+  color: #232323;
+}
+
+.main__content {
+  flex: 5;
+  margin: 0 15px;
+}
+
+.main__links {
+  padding: 0 45px;
+  font-size: 1.1rem;
+  color: #454545;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list--less-padding .list__item {
+  padding: 10px 30px;
+}
+
+.list__item {
+  padding: 15px 30px;
+}
+
+
