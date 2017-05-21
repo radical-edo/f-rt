@@ -14,6 +14,7 @@ body {
   font-size: 16px;
   font-family: var(--fonts);
   --side-margin: 100px;
+  --border-color: #D5D5D5;
 }
 
 .app-header {
@@ -92,6 +93,10 @@ body {
   color: #454545;
 }
 
+.main__links--left-margin {
+  margin-left: var(--side-margin);
+}
+
 .main__links > .list {
   padding-right: 70px;
 }
@@ -123,9 +128,9 @@ body {
 }
 
 .content__progress-buttons {
-  border: 1px solid #eee;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
-  padding: 15px 25px;
+  padding: 25px;
 }
 
 .button {
@@ -163,8 +168,8 @@ body {
 }
 
 .links__section-links {
-  padding-left: 45px;
-  border-left: 2px solid #bdbdbd;
+  padding-left: 15px;
+  border-left: 2px solid var(--border-color);
 }
 
 .section-links__header {
